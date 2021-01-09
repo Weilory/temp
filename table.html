@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+<style>
+
+#table-container table{
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background: lightgrey;
+	font-size: 2em;
+}
+
+#table-container table, 
+#table-container th, 
+#table-container td{
+	border: 1px solid;
+} 
+
+</style>
+
+</head>
+<body>
+
+<div id="table-container">
+	
+</div>
+
+<script>
+function parse_table(parent, row, col, data){
+	var table_el = document.createElement('table');
+	var counter = 0;
+
+	// round it to two decimal
+	const rit = function(num){return Math.round(num * 100) / 100}
+
+	var width_percent = rit(100 / col);
+	var height_percent = rit(100 / row);
+
+	for(let rr = 0; rr < row; rr++){
+		var row_el = document.createElement('tr');
+		for(let cc = 0; cc < col; cc++){
+			var col_el = document.createElement('th');
+			col_el.style.width = `${width_percent}%`;
+			col_el.style.height = `${height_percent}%`;
+			col_el.innerHTML = data[counter];
+			row_el.appendChild(col_el);
+			counter++;
+		}
+		table_el.appendChild(row_el);
+	}
+	parent.appendChild(table_el);
+}
+
+parse_table(
+	document.getElementById('table-container'), 
+	3, 
+	2, 
+	[
+		'jason', '12', 
+		'mary', '13', 
+		'josh', '12',
+	]
+)
+
+
+</script>
+
+</body>
+</html>
